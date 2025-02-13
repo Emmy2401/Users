@@ -16,7 +16,7 @@ services:
     build: .
     container_name: users
     ports:
-      - "8084:8082"  # Changé pour éviter les conflits
+      - "8091:8082"  # Changé pour éviter les conflits
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqlusers:3306/users_db  # Mis à jour pour correspondre au nouveau nom du container
     depends_on:
