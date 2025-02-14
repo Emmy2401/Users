@@ -112,12 +112,11 @@ public class UserController {
         }
 
         User user = userRepository.findByUsername(authentication.getName());
-
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found"));
         }
-
         UserDTO userDTO = new UserDTO(user.getId(), user.getUsername(), user.getRole());
+
         return ResponseEntity.ok(userDTO);
     }
 }
