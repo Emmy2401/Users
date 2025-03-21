@@ -61,7 +61,7 @@ public class UserController {
      * @param signupDTO DTO contenant les informations d'inscription.
      * @return ResponseEntity avec le statut de la création.
      */
-    @Operation(summary = "register", description = "enregistrer un utlisateur")
+    @Operation(summary = "register", description = "enregistrer un utlisateur.")
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody SignupDTO signupDTO) {
         if (userRepository.findByUsername(signupDTO.getUsername()) != null) {
