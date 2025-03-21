@@ -1,10 +1,27 @@
 package org.example.users.Entity;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.swagger.v3.oas.annotations.media.DiscriminatorMapping;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
+@Schema(
+        description = "Représente un utilisateur du système",
+        type = "object",
+        discriminatorProperty = "role",
+        discriminatorMapping = {
+                @DiscriminatorMapping(value = "ROLE_USER", schema = User.class)
+        },
+        enumAsRef = true
+)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "role", visible = true)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = User.class, name = "ROLE_USER")
+})
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

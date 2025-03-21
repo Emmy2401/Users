@@ -1,0 +1,92 @@
+openapi: 3.1.0
+info:
+  title: MedHeadPoc User
+  description: API for POC
+  version: 1.0.0
+servers:
+- url: http://localhost:8082
+  description: Local server
+- url: https://api.users.example.com
+  description: Production server
+tags:
+- name: USERSCONTROLLER
+  description: Controller API USER
+paths:
+  /api/users/register:
+    post:
+      tags:
+      - USERSCONTROLLER
+      summary: register
+      description: enregistrer un utlisateur
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignupDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/users/login:
+    post:
+      tags:
+      - USERSCONTROLLER
+      summary: login
+      description: loger un utilisateur
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/users/me:
+    get:
+      tags:
+      - USERSCONTROLLER
+      summary: me
+      description: consulter son profil
+      operationId: getProfile
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    SignupDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          maxLength: 2147483647
+          minLength: 6
+      required:
+      - password
+      - username
+    LoginDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+      - password
+      - username

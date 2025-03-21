@@ -1,5 +1,7 @@
 package org.example.users.Controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.users.DTO.LoginDTO;
 import org.example.users.DTO.SignupDTO;
 import org.example.users.DTO.UserDTO;
@@ -26,6 +28,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "USERSCONTROLLER", description = "Controller API USER")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -58,6 +61,7 @@ public class UserController {
      * @param signupDTO DTO contenant les informations d'inscription.
      * @return ResponseEntity avec le statut de la création.
      */
+    @Operation(summary = "register", description = "enregistrer un utlisateur.")
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody SignupDTO signupDTO) {
         if (userRepository.findByUsername(signupDTO.getUsername()) != null) {
@@ -80,6 +84,7 @@ public class UserController {
      * @param loginDTO DTO contenant le nom d'utilisateur et le mot de passe.
      * @return ResponseEntity avec le token JWT ou un message d'erreur.
      */
+    @Operation(summary = "login", description = "loger un utilisateur")
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody LoginDTO loginDTO) {
         try {
@@ -105,6 +110,7 @@ public class UserController {
     /**
      * Récupération du profil utilisateur authentifié.
      */
+    @Operation(summary = "me", description = "consulter son profil")
     @GetMapping("/me")
     public ResponseEntity<Object> getProfile(Authentication authentication) {
         if (authentication == null || authentication.getName() == null) {
